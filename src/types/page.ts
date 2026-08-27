@@ -22,6 +22,9 @@ export interface CardItem {
     tags?: string[];
     link?: string;
     image?: string;
+    icon?: string;
+    section?: string;
+    highlight?: boolean;
 }
 
 export interface CardPageConfig extends BasePageConfig {

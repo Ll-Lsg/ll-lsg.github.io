@@ -2,7 +2,29 @@
 
 import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
+import Image from 'next/image';
+import {
+    Award,
+    Bot,
+    BriefcaseBusiness,
+    DatabaseZap,
+    GraduationCap,
+    Sparkles,
+    Workflow,
+    Wrench,
+} from 'lucide-react';
 import { CardPageConfig } from '@/types/page';
+
+const iconMap = {
+    award: Award,
+    bot: Bot,
+    briefcase: BriefcaseBusiness,
+    knowledge: DatabaseZap,
+    education: GraduationCap,
+    automation: Sparkles,
+    workflow: Workflow,
+    skills: Wrench,
+};
 
 const markdownComponents = {
     p: ({ children }: React.ComponentProps<'p'>) => <p className="mb-3 last:mb-0">{children}</p>,
@@ -30,6 +52,17 @@ const markdownComponents = {
 };
 
 export default function CardPage({ config, embedded = false }: { config: CardPageConfig; embedded?: boolean }) {
+    const sections = config.items.reduce<Array<{ title: string; items: typeof config.items }>>((groups, item) => {
+        const title = item.section || '';
+        const existing = groups.find((group) => group.title === title);
+        if (existing) {
+            existing.items.push(item);
+        } else {
+            groups.push({ title, items: [item] });
+        }
+        return groups;
+    }, []);
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,43 +80,91 @@ export default function CardPage({ config, embedded = false }: { config: CardPag
                 )}
             </div>
 
-            <div className={`grid ${embedded ? "gap-4" : "gap-6"}`}>
-                {config.items.map((item, index) => (
-                    <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.4, delay: 0.1 * index }}
-                        className={`bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-800 hover:shadow-lg transition-all duration-200 hover:scale-[1.01]`}
+            <div className={embedded ? "space-y-7" : "space-y-12"}>
+                {sections.map((section, sectionIndex) => (
+                    <motion.section
+                        key={section.title || sectionIndex}
+                        initial={{ opacity: 0, y: 28 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.12 }}
+                        transition={{ duration: 0.55, delay: sectionIndex * 0.05 }}
                     >
-                        <div className="flex justify-between items-start mb-2">
-                            <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
-                            {item.date && (
-                                <span className="text-sm text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
-                                    {item.date}
-                                </span>
-                            )}
+                        {section.title && (
+                            <div className="flex items-center gap-3 mb-5">
+                                <span className="h-px w-8 bg-accent" />
+                                <h2 className={`${embedded ? "text-xl" : "text-2xl"} font-serif font-bold text-primary`}>
+                                    {section.title}
+                                </h2>
+                            </div>
+                        )}
+
+                        <div className={`grid gap-5 ${section.items.length > 1 ? "md:grid-cols-2" : ""}`}>
+                            {section.items.map((item, index) => {
+                                const Icon = item.icon ? iconMap[item.icon as keyof typeof iconMap] : undefined;
+                                return (
+                                    <motion.div
+                                        key={`${section.title}-${item.title}-${index}`}
+                                        initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                                        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                        whileHover={{ y: -5 }}
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        transition={{ duration: 0.45, delay: index * 0.08 }}
+                                        className={`group relative overflow-hidden bg-white dark:bg-neutral-900 ${embedded ? "p-4" : "p-6"} rounded-2xl shadow-sm border ${item.highlight ? "border-accent/50" : "border-neutral-200 dark:border-neutral-800"} hover:shadow-xl transition-shadow duration-300`}
+                                    >
+                                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-accent-light to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                        <div className="flex items-start justify-between gap-4 mb-4">
+                                            <div className="min-w-0">
+                                                <h3 className={`${embedded ? "text-lg" : "text-xl"} font-semibold text-primary`}>{item.title}</h3>
+                                                {item.subtitle && (
+                                                    <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mt-1`}>{item.subtitle}</p>
+                                                )}
+                                            </div>
+
+                                            {item.image && (
+                                                <motion.div
+                                                    whileHover={{ scale: 1.06 }}
+                                                    className="relative shrink-0 w-28 h-12 rounded-xl bg-neutral-50 dark:bg-neutral-800 p-2"
+                                                >
+                                                    <Image src={item.image} alt={`${item.subtitle || item.title} 标识`} fill className="object-contain p-2" />
+                                                </motion.div>
+                                            )}
+                                            {!item.image && Icon && (
+                                                <motion.div
+                                                    whileHover={{ rotate: -6, scale: 1.08 }}
+                                                    className="shrink-0 flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"
+                                                >
+                                                    <Icon size={23} strokeWidth={1.8} />
+                                                </motion.div>
+                                            )}
+                                        </div>
+
+                                        {item.date && (
+                                            <span className="inline-flex text-xs text-neutral-500 font-medium bg-neutral-100 dark:bg-neutral-800 px-2.5 py-1 rounded-full mb-4">
+                                                {item.date}
+                                            </span>
+                                        )}
+                                        {item.content && (
+                                            <div className={`${embedded ? "text-sm" : "text-[0.95rem]"} text-neutral-600 dark:text-neutral-500 leading-relaxed`}>
+                                                <ReactMarkdown components={markdownComponents}>
+                                                    {item.content}
+                                                </ReactMarkdown>
+                                            </div>
+                                        )}
+                                        {item.tags && (
+                                            <div className="flex flex-wrap gap-2 mt-5">
+                                                {item.tags.map(tag => (
+                                                    <span key={tag} className="text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2.5 py-1 rounded-full border border-neutral-100 dark:border-neutral-800">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </motion.div>
+                                );
+                            })}
                         </div>
-                        {item.subtitle && (
-                            <p className={`${embedded ? "text-sm" : "text-base"} text-accent font-medium mb-3`}>{item.subtitle}</p>
-                        )}
-                        {item.content && (
-                            <div className={`${embedded ? "text-sm" : "text-base"} text-neutral-600 dark:text-neutral-500 leading-relaxed`}>
-                                <ReactMarkdown components={markdownComponents}>
-                                    {item.content}
-                                </ReactMarkdown>
-                            </div>
-                        )}
-                        {item.tags && (
-                            <div className="flex flex-wrap gap-2 mt-4">
-                                {item.tags.map(tag => (
-                                    <span key={tag} className="text-xs text-neutral-500 bg-neutral-50 dark:bg-neutral-800/50 px-2 py-1 rounded border border-neutral-100 dark:border-neutral-800">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-                    </motion.div>
+                    </motion.section>
                 ))}
             </div>
         </motion.div>

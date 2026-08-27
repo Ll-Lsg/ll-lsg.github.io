@@ -65,8 +65,9 @@ function loadPageDataForLocale(locale: string | undefined): HomePageLocaleData {
   const localeConfig = getConfig(locale);
   const enableOnePageMode = localeConfig.features.enable_one_page_mode;
 
-  const aboutConfig = getPageConfig<{ profile?: { research_interests?: string[] }; sections?: SectionConfig[] }>('about', locale);
+  const aboutConfig = getPageConfig<{ profile?: { research_interests?: string[]; quote?: string[] }; sections?: SectionConfig[] }>('about', locale);
   const researchInterests = aboutConfig?.profile?.research_interests;
+  const profileQuote = aboutConfig?.profile?.quote;
 
   let pagesToShow: PageData[] = [];
 
@@ -133,6 +134,7 @@ function loadPageDataForLocale(locale: string | undefined): HomePageLocaleData {
     features: localeConfig.features,
     enableOnePageMode,
     researchInterests,
+    profileQuote,
     pagesToShow,
   };
 }

@@ -52,11 +52,15 @@ function loadDynamicPageData(slug: string, locale?: string): DynamicPageLocaleDa
 
 export function generateStaticParams() {
   const config = getConfig();
-  return config.navigation
+  const pages = config.navigation
     .filter((nav) => nav.type === 'page' && nav.target !== 'about')
     .map((nav) => ({
       slug: nav.target,
     }));
+
+  // Next.js static export requires at least one generated value for a dynamic route.
+  // Keep a small unlinked fallback page so a homepage-only site can still be built.
+  return pages.length > 0 ? pages : [{ slug: '_site' }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

@@ -32,9 +32,10 @@ interface ProfileProps {
     social: SiteConfig['social'];
     features: SiteConfig['features'];
     researchInterests?: string[];
+    quote?: string[];
 }
 
-export default function Profile({ author, social, features, researchInterests }: ProfileProps) {
+export default function Profile({ author, social, features, researchInterests, quote }: ProfileProps) {
     const messages = useMessages();
 
     const [hasLiked, setHasLiked] = useState(false);
@@ -303,8 +304,22 @@ export default function Profile({ author, social, features, researchInterests }:
                 })}
             </div>
 
-            {/* Research Interests */}
-            {researchInterests && researchInterests.length > 0 && (
+            {/* Profile quote */}
+            {quote && quote.length > 0 ? (
+                <motion.blockquote
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, delay: 0.25 }}
+                    className="relative bg-neutral-100 dark:bg-neutral-800 rounded-lg px-5 py-5 mb-6 overflow-hidden"
+                >
+                    <span className="absolute left-0 top-4 bottom-4 w-0.5 bg-accent/70 rounded-full" />
+                    <div className="space-y-1 text-sm leading-7 tracking-wide text-neutral-700 dark:text-neutral-500 font-serif">
+                        {quote.map((line, index) => (
+                            line ? <div key={index}>{line}</div> : <div key={index} className="h-2" aria-hidden="true" />
+                        ))}
+                    </div>
+                </motion.blockquote>
+            ) : researchInterests && researchInterests.length > 0 ? (
                 <div className="bg-neutral-100 dark:bg-neutral-800 rounded-lg p-4 mb-6 hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
                     <h3 className="font-semibold text-primary mb-3">{messages.profile.researchInterests}</h3>
                     <div className="space-y-2 text-sm text-neutral-700 dark:text-neutral-500">
@@ -313,7 +328,7 @@ export default function Profile({ author, social, features, researchInterests }:
                         ))}
                     </div>
                 </div>
-            )}
+            ) : null}
 
             {/* Like Button */}
             {features.enable_likes && (

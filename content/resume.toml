@@ -1,0 +1,80 @@
+type = "card"
+title = "我的简历"
+description = ""
+
+[[items]]
+section = "教育背景"
+title = "会计硕士"
+subtitle = "江汉大学"
+date = "2024.09 - 至今"
+icon = "education"
+content = "入学初试第一。连续获得校级一等奖学金（2024）和二等奖学金（2025）。"
+tags = ["会计", "硕士研究生", "初试第一"]
+
+[[items]]
+section = "教育背景"
+title = "会计学本科"
+subtitle = "江汉大学"
+date = "2020.09 - 2024.06"
+icon = "education"
+content = "GPA 3.62/4.0，年级排名前 10%；获评优秀毕业生、优秀学生干部。"
+tags = ["GPA 3.62", "前 10%", "优秀毕业生"]
+
+[[items]]
+section = "实践经历"
+title = "财务实习生"
+subtitle = "武汉星纪魅族"
+date = "2026.01 - 2026.07"
+image = "/meizu-logo.svg"
+highlight = true
+content = "负责费用审核、SAP 入账、银行对账及财务服务台答疑。从高频重复工作中识别自动化机会，推动商旅账单和 AI 知识库项目落地。"
+tags = ["SAP", "飞书", "费用审核", "流程优化"]
+
+[[items]]
+section = "实践经历"
+title = "审计实习生"
+subtitle = "中审众环会计师事务所 · 武汉总部"
+date = "2022.12 - 2023.03"
+icon = "briefcase"
+content = "参与湖北省科技投资集团年审，走访近 20 家子公司；协助完成底稿、试算平衡、存货盘点、发函和抽凭。"
+tags = ["年审", "审计底稿", "存货盘点"]
+
+[[items]]
+section = "重点项目"
+title = "商旅账单自动化处理"
+subtitle = "从原始账单到 SAP 模板"
+icon = "workflow"
+highlight = true
+content = "使用 Power Query 将 5 类账单标准化，完成多表追加、成本中心与费用科目映射、异常校验及模板导出。数据源更新后即可一键生成，项目文件已交付集团财务使用。"
+tags = ["Power Query", "SAP", "数据清洗", "自动化"]
+
+[[items]]
+section = "重点项目"
+title = "财务报销 AI 知识库"
+subtitle = "让高频咨询可检索、可复用"
+icon = "knowledge"
+highlight = true
+content = "沉淀报销制度、常见案例和审批流程，构建结构化知识库并接入 AI Agent。支持按差旅、采购、团建等场景生成材料清单和 OA 填写规范。"
+tags = ["AI Agent", "知识库", "报销流程", "Skill"]
+
+[[items]]
+section = "重点项目"
+title = "财务自动化工具箱"
+subtitle = "把重复操作交给工具"
+icon = "automation"
+content = "- 借助 Codex 开发银行日记账与 SAP 明细账辅助对账工具\n- 使用 VBA 自动整理发票数据并登记台账\n- 结合影刀 RPA 与 Power Query 获取并整理物料价格"
+tags = ["Codex", "VBA", "影刀 RPA", "Power Query"]
+
+[[items]]
+section = "技能与荣誉"
+title = "工具与证书"
+icon = "skills"
+content = "数据处理以 Power Query、VBA、SQL 和 Python 为主；熟练使用 Codex、WorkBuddy 辅助开发工作工具。持有影刀中级 RPA、初级会计及计算机二级 MS Office 证书，通过英语四级、六级。"
+tags = ["Python", "SQL", "VBA", "AI 辅助开发"]
+
+[[items]]
+section = "技能与荣誉"
+title = "精选荣誉"
+icon = "award"
+content = "IMA 校园管理会计大赛华中区第 5 名；市场调查与分析大赛省级二等奖；EOVS 赛事国家级一等奖。"
+tags = ["管理会计", "市场调查", "国家级一等奖"]
