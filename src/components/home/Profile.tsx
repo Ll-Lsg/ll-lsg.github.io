@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 import {
     EnvelopeIcon,
     AcademicCapIcon,
@@ -315,7 +316,13 @@ export default function Profile({ author, social, features, researchInterests, q
                     <span className="absolute left-0 top-4 bottom-4 w-0.5 bg-accent/70 rounded-full" />
                     <div className="space-y-1 text-sm leading-7 tracking-wide text-neutral-700 dark:text-neutral-500 font-serif">
                         {quote.map((line, index) => (
-                            line ? <div key={index}>{line}</div> : <div key={index} className="h-2" aria-hidden="true" />
+                            line ? (
+                                <div key={index}>
+                                    <ReactMarkdown components={{ p: ({ children }) => <>{children}</> }}>
+                                        {line}
+                                    </ReactMarkdown>
+                                </div>
+                            ) : <div key={index} className="h-2" aria-hidden="true" />
                         ))}
                     </div>
                 </motion.blockquote>
