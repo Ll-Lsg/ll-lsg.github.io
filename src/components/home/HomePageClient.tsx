@@ -1,6 +1,6 @@
 'use client';
 
-import Profile from '@/components/home/Profile';
+import Profile, { ProfileQuote } from '@/components/home/Profile';
 import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
@@ -123,6 +123,9 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
               )}
             </section>
           ))}
+          <div className="hidden lg:block max-w-2xl">
+            <ProfileQuote quote={data.profileQuote} />
+          </div>
         </div>
       </div>
     </div>
