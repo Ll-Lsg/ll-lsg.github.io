@@ -137,10 +137,10 @@ export default function Profile({ author, social, features, researchInterests, q
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="sticky top-8"
+            className="w-full"
         >
             {/* Profile Image */}
-            <div className="w-64 h-64 lg:w-56 lg:h-56 mx-auto mb-6 lg:mb-4 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
+            <div className="w-64 h-64 mx-auto mb-6 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105">
                 <Image
                     src={author.avatar}
                     alt={author.name}
@@ -152,7 +152,7 @@ export default function Profile({ author, social, features, researchInterests, q
             </div>
 
             {/* Name and Title */}
-            <div className="text-center mb-6 lg:mb-4">
+            <div className="text-center mb-6">
                 <h1 className="text-3xl font-serif font-bold text-primary mb-2">
                     {author.name}
                 </h1>
@@ -165,7 +165,7 @@ export default function Profile({ author, social, features, researchInterests, q
             </div>
 
             {/* Contact Links */}
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 lg:mb-4 relative px-2">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-6 relative px-2">
                 {socialLinks.map((link) => {
                     const IconComponent = link.icon;
                     if (link.isLocation) {
@@ -333,7 +333,7 @@ export default function Profile({ author, social, features, researchInterests, q
 
             {/* Profile quote */}
             {quote && quote.length > 0 ? (
-                <div className="mb-6 lg:hidden">
+                <div className="mb-6">
                     <ProfileQuote quote={quote} />
                 </div>
             ) : researchInterests && researchInterests.length > 0 ? (

@@ -1,6 +1,6 @@
 'use client';
 
-import Profile, { ProfileQuote } from '@/components/home/Profile';
+import Profile from '@/components/home/Profile';
 import About from '@/components/home/About';
 import SelectedPublications from '@/components/home/SelectedPublications';
 import News, { NewsItem } from '@/components/home/News';
@@ -55,9 +55,9 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-        <div className="lg:col-span-1">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-background min-h-screen">
+      <div className="space-y-12">
+        <div className="w-full max-w-lg mx-auto">
           <Profile
             author={data.author}
             social={data.social}
@@ -67,7 +67,7 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
           />
         </div>
 
-        <div className="lg:col-span-2 space-y-8">
+        <div className="w-full max-w-lg mx-auto space-y-8">
           {data.pagesToShow.map((page) => (
             <section key={page.id} id={page.id} className="scroll-mt-24 space-y-8">
               {page.type === 'about' && page.sections.map((section: SectionConfig) => {
@@ -123,9 +123,6 @@ export default function HomePageClient({ dataByLocale, defaultLocale }: HomePage
               )}
             </section>
           ))}
-          <div className="hidden lg:block max-w-2xl">
-            <ProfileQuote quote={data.profileQuote} />
-          </div>
         </div>
       </div>
     </div>
